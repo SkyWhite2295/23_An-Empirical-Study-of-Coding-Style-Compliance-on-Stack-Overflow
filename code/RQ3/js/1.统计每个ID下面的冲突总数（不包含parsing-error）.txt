@@ -1,0 +1,6 @@
+import pandas as pd
+#直接采用RQ2是所获得的answer_reports_in_csv_insert_1.csv文件，然后删除里面的parsing-error，再执行下面这段代码，就可以统计出不包含parsing-error冲突的每个ID下面的冲突数
+
+frame = pd.read_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_reports_in_csv_insert_1 - 副本.csv")
+group = frame["Count"].groupby(frame["ID"]).sum()  # 计算violation分类总数
+group.to_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/RQ3.1_compute_every_snipptserror_delete_parsing-error.csv", mode='a')

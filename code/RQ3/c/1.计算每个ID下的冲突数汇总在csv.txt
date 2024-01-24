@@ -1,0 +1,37 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/answer_c++_reports'
+path2 = r'D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/RQ3.1compute_every_snipptserror.csv'
+
+def write_csv(path2, data_row1, data_row2):
+    with open(path2,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow([data_row1, data_row2])
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+#提取c++报告中代码不合规的值个数并对应存入ID和violation数
+
+for content in contents:
+
+    with open(content, 'r', encoding='gbk') as file:
+        count = 0
+        length = len(open(content, 'r', encoding='gbk').readlines())
+        c = content.split('\\')[1].split('.')[0]
+        if length != 1:
+            file_content = file.readlines()  # 将全部内容读取为一个列表，每一行为一个元素
+            file_line_last = file_content[-1]  # 读取最后一行字符串内容
+            target = file_line_last.split(':')[-1]
+            count = int(target)
+        elif length == 1:  # 合规的
+            count = 0
+
+    write_csv(path2, c, count)

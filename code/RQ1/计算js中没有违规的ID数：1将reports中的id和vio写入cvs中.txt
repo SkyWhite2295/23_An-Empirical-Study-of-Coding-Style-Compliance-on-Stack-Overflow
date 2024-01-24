@@ -1,0 +1,26 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_results.txt'
+path2 = r'D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_reports_in_csv.csv'
+
+def write_csv(path2, data_row1, data_row2):
+    with open(path2,'a+', newline='', encoding='utf-8') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow([data_row1, data_row2])
+
+#提取js报告中代码不合规的值
+
+with open(path, 'r', encoding='utf-8') as fd:
+    textlist = fd.readlines()
+    for text in textlist:
+        try:
+            x = text.split(':')[1].split('\\')[6].split('.')[0]
+            if 'Parsing error' in text:
+                w = 'Parsing error'
+            else:
+                w = text.split('(')[-1].split(')')[0]
+        except Exception as e:
+            print(e)  # 打印所有异常到屏幕
+            print(text)
+        else:
+            write_csv(path2, x, w)

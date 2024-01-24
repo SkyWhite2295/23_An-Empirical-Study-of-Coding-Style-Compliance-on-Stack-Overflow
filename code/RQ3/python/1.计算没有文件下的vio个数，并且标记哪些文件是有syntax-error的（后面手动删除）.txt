@@ -1,0 +1,40 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/python_reports'
+path2 = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/RQ3.1_compute_every_snipptserror_show_syntax-error.csv'
+
+def write_csv(path2, data_row1, data_row2):
+    with open(path2,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow([data_row1, data_row2])
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+#提取python报告中代码不合规的值个数并对应存入ID和violation数
+
+for content in contents:
+
+    with open(content, 'r+') as fd:
+        count = 0
+        for text in fd.readlines():
+            if 'python_package' in text and 'syntax-error' not in text:
+                count = count + 1
+            elif 'Module' in text:
+                    # with open(path2, 'w') as f:
+                c = text.split(' ')[2]
+            elif 'Your code has been rated at 10.00' in text:
+                c = content.split('\\')[1].split('.')[0]
+            elif 'syntax-error' in text:
+                count = 999
+
+    # print(count)
+    # print(c, 'count:', count)
+    write_csv(path2, c, count)

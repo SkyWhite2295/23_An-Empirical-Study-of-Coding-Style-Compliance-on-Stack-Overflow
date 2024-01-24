@@ -1,0 +1,33 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/JavaScript/answer/js_package'
+path2 = r'D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/RQ3.3count_everyIdLine.csv'
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.js':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+
+def write_csv(path2, data_row1, data_row2):
+    with open(path2,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow([data_row1, data_row2])
+
+for content in contents:
+    try:
+        with open(content, 'r', encoding='utf-8') as f:  # 打开文件
+            count = len(open(content, 'r', encoding='utf-8').readlines())
+
+    except Exception as e:
+        print(e)  # 打印所有异常到屏幕
+        print(content)
+    else:
+        # 计算.py/.cpp/.js代码行数的,未计算最后一行空行
+        ID = content.split('\\')[1].split('.')[0]
+        # print(ID, ':', count)
+        write_csv(path2, ID, count)

@@ -1,0 +1,5 @@
+import pandas as pd
+
+frame = pd.read_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_reports_in_csv_insert_1.csv")
+group = frame["Count"].groupby(frame["ID"]).sum()  # 计算id分类总数
+group.to_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_sumid.csv", mode='a')

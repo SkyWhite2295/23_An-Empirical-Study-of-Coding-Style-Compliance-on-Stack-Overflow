@@ -1,0 +1,35 @@
+import os
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/c++_reports'
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+
+# n=1
+sum = 0
+success = 0
+for content in contents:
+
+    #计算cpp的执行报错数的
+     with open(content, 'r', encoding='gbk') as file:
+         count = len(open(content, 'r', encoding='gbk').readlines())
+         if count != 1:
+             file_content = file.readlines()  # 将全部内容读取为一个列表，每一行为一个元素
+             file_line_last = file_content[-1]  # 读取最后一行字符串内容
+             target = file_line_last.split(':')[-1]
+             # print(target)
+             sum = sum + int(target)
+             # print(int(target))
+         elif count == 1: #合规的
+             success = success + 1
+
+ print(sum)
+ print(success)
+

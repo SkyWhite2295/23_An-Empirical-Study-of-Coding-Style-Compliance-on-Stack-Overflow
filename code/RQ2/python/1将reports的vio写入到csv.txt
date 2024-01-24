@@ -1,0 +1,36 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/python_reports'
+path2 = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer_reports_in_csv.csv'
+
+def write_csv(path2, data_row):
+    with open(path2,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow(data_row)
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+#提取python报告中代码不合规的值
+
+for content in contents:
+    a = open(content, 'r', encoding='gbk').readlines()
+    file_line_last = a[-2]  # 读取倒数第二行字符串内容，因为最后一行存在空行，所以去倒数第二行
+    if 'Your code has been rated at 10.00' in file_line_last:
+           
+        pass
+    else:
+        with open(content, 'r+') as fd:
+            for text in fd.readlines():
+                x = text.split('(')[-1]
+                y = [x] # 去掉存入csv时一个字符占一个单元格的情况，转化为列表形式即可
+                if text.split():
+                    write_csv(path2, y)
+            

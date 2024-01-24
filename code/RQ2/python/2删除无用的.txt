@@ -1,0 +1,11 @@
+import csv
+
+import pandas as pd
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer_reports_in_csv.csv'
+
+#删除csv中无用的信息
+with open(path, 'r') as f_original:
+     with open(path+'_new.csv', 'w', newline='') as f_new:
+         for line in f_original:
+             if not line.startswith('"previous') and not line.startswith('"-') and not line.startswith('"*'):
+                 f_new.write(line)

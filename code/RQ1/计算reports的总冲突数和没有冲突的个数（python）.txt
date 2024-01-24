@@ -1,0 +1,42 @@
+import os
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/python_reports'
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    return L
+
+contents = show_files(path)
+
+sum = 0
+success = 0
+for content in contents:
+
+# 计算python报错数（txt）
+
+     with open(content, 'r', encoding='gbk') as file:
+         count = len(open(content, 'r', encoding='gbk').readlines())
+     if count != 1:
+         a = open(content, 'r', encoding='gbk').readlines()
+     # file_content = a.readlines()  # 将全部内容读取为一个列表，每一行为一个元素
+     if len(a) < 2: #非python的代码，所以检测出来的reports文件为空
+         print(content)
+     else:
+         file_line_last = a[-2]  # 读取倒数第二行字符串内容
+         count = len(a)
+         for line in a:
+             if line.isspace():
+                 count = count - 1  # 审查，若有空行则循环次数减1
+             else:
+                 pass
+         if 'Your code has been rated at 10.00' in file_line_last:
+             success = success+1
+         elif count == 2:
+             sum = sum + count - 1
+         else:
+             sum = sum + count - 3
+ print(sum)
+ print(success)

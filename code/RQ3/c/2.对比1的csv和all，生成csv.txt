@@ -1,0 +1,28 @@
+import pandas as pd
+import csv
+
+path = r'D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/RQ3.2_sum_all.csv'
+frame1 = pd.read_csv("D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/RQ3.1compute_every_snipptserror.csv", usecols=['ID', 'ViolationCount'])
+frame2 = pd.read_csv("D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/c++/all_csv/c_result_all.csv", usecols=['PostsId', 'Score', 'CommentCount'], encoding='utf-8', encoding_errors='ignore')
+
+def write_csv(path, data_row1, data_row2, data_row3, data_row4):
+    with open(path,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        csv_write.writerow([data_row1, data_row2, data_row3, data_row4])
+
+
+frame1_list = frame1.values.tolist()
+frame2_list = frame2.values.tolist()
+
+
+# print(frame1_list[0][0]) #读取ID值
+# print(frame2_list[0][1])# 读取score的值
+
+n = len(frame1_list)
+m = len(frame2_list)
+i = 0
+j = 0
+for i in range(n):
+    for j in range(m):
+        if frame1_list[i][0] == frame2_list[j][0]:
+            write_csv(path, frame2_list[j][0], frame1_list[i][1], frame2_list[j][1], frame2_list[j][2])

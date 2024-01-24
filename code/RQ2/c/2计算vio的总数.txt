@@ -1,0 +1,4 @@
+import pandas as pd
+frame = pd.read_csv("D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/answer_c++report_incsv.csv", names=["A", "B"])
+group = frame["B"].groupby(frame["A"]).sum()  # 计算violation分类总数
+group.to_csv("D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/RQ2_vio_sumcount.csv")

@@ -1,0 +1,8 @@
+import csv
+
+import pandas as pd
+
+#计算值的个数
+df = pd.read_csv(filepath_or_buffer='D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer删除空格后的数据.csv')
+a = df['violation'].value_counts() #计算violation的每个值出现的次数
+a.to_csv(path_or_buf='D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer_RQ2Results_summary.csv')#结果保存在文件

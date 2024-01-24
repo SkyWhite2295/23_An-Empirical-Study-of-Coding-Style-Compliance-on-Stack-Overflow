@@ -1,0 +1,20 @@
+import os
+path = r'D:/北工大/2021第一学期/毕设/python/Scripts/answer/python_package'
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.py':
+                L.append(os.path.join(root, file))
+    return L
+
+contents = show_files(path)
+
+sum = 0
+success = 0
+for content in contents:
+    count = len(open(content, 'r', encoding='utf-8').readlines())
+    # 计算.py/.cpp/.js代码行数的,未计算最后一行空行
+    sum = count + sum
+print(sum)

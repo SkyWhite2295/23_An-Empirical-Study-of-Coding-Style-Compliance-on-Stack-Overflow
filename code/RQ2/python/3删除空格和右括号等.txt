@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+#执行代码前需手动在要执行的这个csv中加入列名violation
+df = pd.read_csv(filepath_or_buffer='D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer_reports_in_csv.csv_new.csv', encoding='gbk')
+
+pd.set_option('display.max_rows', 200)
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\)\n", "")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r")", "")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nm", "m")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\ns", "s")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\np", "p")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nc", "c")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nu", "u")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nb", "b")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nd", "d")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\nt", "t")
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\ni","i")
+
+for col in df.columns:
+    if col == 'that_int_column':
+        continue
+    df[col] = df[col].str.replace(r"\n", "z")
+df = df.replace(r'z', np.nan, regex=True).replace('z', np.nan)
+df = df.dropna(axis=0, how="all")
+df.to_csv(path_or_buf='D:/北工大/2021第一学期/毕设/python/Scripts/answer/answer删除空格后的数据.csv')#结果保存在文件
+print(df)

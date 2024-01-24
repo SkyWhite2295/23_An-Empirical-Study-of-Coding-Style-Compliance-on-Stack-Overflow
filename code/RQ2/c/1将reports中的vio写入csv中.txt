@@ -1,0 +1,40 @@
+import os
+import csv
+path = r'D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/answer_c++_reports'
+path2 = r'D:/北工大/2021第一学期/毕设/python/Lib/site-packages/answer/answer_c++report_incsv.csv'
+def write_csv(path2, data_row1, data_row2):
+    with open(path2,'a+', newline='') as f:
+        csv_write = csv.writer(f)
+        # csv_write.writerow(['violation', 'count'])
+        csv_write.writerow([data_row1, data_row2])
+        # csv_write.writerow(data_row2)
+
+
+def show_files(path):
+    L = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if os.path.splitext(file)[1] == '.txt':
+                L.append(os.path.join(root, file))
+    # print(len(L))
+    return L
+
+contents = show_files(path)
+
+for content in contents:
+    with open(content, 'r', encoding='gbk') as file:
+        file_content = file.readlines()  # 将全部内容读取为一个列表，每一行为一个元素
+        for text in file_content:
+            if 'Category' in text:
+                try:
+                    x = text.split('\'')[1]
+                    z = text.split('\'')[2].split(':')[1]
+                except Exception as e:
+                    print(e)# 打印所有异常到屏幕
+                    print(content)
+                else:
+                    y = [x]  # 去掉存入csv时一个字符占一个单元格的情况，转化为列表形式即可
+                    w = [z]
+
+                    write_csv(path2, x, z)
+

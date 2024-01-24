@@ -1,0 +1,6 @@
+import pandas as pd
+#执行代码前需要手动往answer_reports_in_csv.csv中插入count列
+frame = pd.read_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_reports_in_csv.csv")
+insert_number = 1
+frame['Count'] = insert_number
+frame.to_csv("D:/北工大/2021第一学期/毕设/JavaScript/answer/js_reports/answer_reports_in_csv_insert_1.csv", mode='a', index=False)
